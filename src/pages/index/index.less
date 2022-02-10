@@ -2,9 +2,8 @@
   flex: 1;
   width: 100vw;
   height: 100vh;
-  background-color: red;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 
@@ -12,37 +11,92 @@
 
 .table_wrap {
   width: 100vw;
-  height: 400px;
+  flex: 1;
   overflow: auto;
-  border-bottom: 1px solid #61dafb;
-  position: fixed;
+
+  .left {
+    text-align: left;
+    padding-left: 5px;
+  }
+
+  .leftTd {
+    .left;
+    background-color: #fff;
+    z-index: 39999;
+    position: sticky;
+    left: 0;
+    padding-left: 24px;
+
+  }
+
+  .right {
+    text-align: right;
+  }
+
+
+  .leftHeader {
+    .left;
+    font-weight: bold;
+    z-index: 99999;
+  }
+
+  .rightHeader {
+    .right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .up {
+    color: #f56c6c;
+    font-weight: bold;
+  }
+
+  .down {
+    color: #4eb61b;
+    font-weight: bold;
+  }
+
 
 
   .tr {
     width: 1500px;
     display: flex;
-    height: 60px;
+    height: 80px;
+  }
+
+  .th {
+    font-size: 32px;
+    align-items: center;
+    display: flex;
+    padding-right: 24px;
+    background: #fff;
+  }
+
+  .td {
+    padding-right: 24px;
+    font-size: 28px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
   }
 
   /* 表格th/td样式 */
   .td,
   .th {
-    width: 150px;
-    box-sizing: border-box;
-    border-right: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
     /*超出长度...*/
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     flex-shrink: 0;
+
   }
 
   .thead {
     position: sticky;
     top: 0;
-    background: red;
-    z-index: 999;
+    z-index: 9999999;
   }
 
   /* 表头固定 */
@@ -50,30 +104,69 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background: #F4F4F5;
-
   }
 
 
   /* 首列固定/最后一列固定*/
-  .th:first-child{
+  .th:first-child {
     position: -webkit-sticky;
     position: sticky;
     left: 0;
-    background: #F4F4F5;
-    text-align: center;
     right: 0;
-    border-left: 1px solid #DDDDDD;
-    width: 100px;
     flex-shrink: 0;
+    z-index: 99999;
+    background-color: #fff;
+    padding-left: 24px;
+  }
+}
+
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border-top: 1px solid #eee;
+
+
+  .bottomRow-left {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
   }
 
-  /* 表头首列和最后一列强制最顶层 */
-
-  .th:first-child {
-    z-index: 3;
-    /*左上角单元格z-index，切记要设置，不然表格纵向横向滚动时会被该单元格右方或者下方的单元格遮挡*/
-    background: #F4F4F5;
+  .bottomRow-right {
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
   }
 
+}
+
+
+.leftIcon {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+  font-size: 60px;
+  color: red;
+}
+
+
+.rightIcon {
+  font-size: 60px;
+}
+
+
+.btn-up {
+  color: #f56c6c;
+  border-color: #f56c6c;
+  font-weight: bold;
+}
+
+.btn-down {
+  color: #4eb61b;
+  border-color: #4eb61b;
+  font-weight: bold;
 }

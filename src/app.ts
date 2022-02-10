@@ -17,7 +17,7 @@ import './app.less'
     /**
      * 微信小程序appID，以wx开头
      */
-    appid: 'touristappid',
+    appid: 'wxf408dd1eafe8ac0d',
   
     /**
      * 如果使用了小程序插件，需要设置为 true

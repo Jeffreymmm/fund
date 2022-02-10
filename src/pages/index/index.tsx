@@ -1,50 +1,169 @@
 import { Component } from 'react'
-import { View } from '@tarojs/components'
+import { View, Icon } from '@tarojs/components'
 import './index.less'
 import Taro from '@tarojs/api';
 export default class extends Component {
 
   column = [
-
     {
       columnName: '基金名称',
-      width: '200rpx'
+      columnCode: 'name',
+      width: '230rpx',
     },
     {
       columnName: '净值',
-      width: '200rpx'
+      columnCode: 'dwjz',
+      width: '150rpx',
+      format: '%',
+      isValue: true
     },
     {
       columnName: '估算净值',
-      width: '200rpx'
+      columnCode: 'gszzl',
+      width: '150rpx',
+      format: '%',
+      isValue: true
     },
     {
-      columnName: '当日收益',
-      width: '200rpx'
+      columnName: '估算收益',
+      columnCode: 'gains',
+      width: '150rpx',
+      isValue: true
+    },
+    {
+      columnName: '持有额',
+      columnCode: 'amount',
+      width: '150rpx',
+      isValue: true
     },
     {
       columnName: '持有收益',
-      width: '200rpx'
+      columnCode: 'costGains',
+      width: '200rpx',
+      isValue: true
     },
     {
       columnName: '持有收益率',
-      width: '200rpx'
+      columnCode: 'costGainsRate',
+      width: '200rpx',
+      format: '%',
+      isValue: true
     },
+
+
     {
-      columnName: '持仓金额',
-      width: '200rpx'
-    },
-    {
-      columnName: '持仓占比',
-      width: '200rpx'
+      columnName: '更新时间',
+      columnCode: 'gztime',
+      width: '280rpx'
     },
   ];
 
   fundList = [
     {
       code: '003095',
-      num: 0,
-      cost: 0
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    },
+    {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
+    }, {
+      code: '003095',
+      num: 5954.10,
+      cost: 3.3590
     },
   ]
 
@@ -52,35 +171,10 @@ export default class extends Component {
 
   userId: any = null;
 
-  render() {
-    return (
-      <View className="table_wrap">
-        <View className="thead">
-          <View className="tr">
-            {this.column.map(item => {
-              return <View style={{ width: item.width }} className="th" >{item.columnName}</View>
-            })}
-          </View>
-        </View>
 
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item: any) => {
-          return <View className="tr">
-            <View className="th" >序号</View>
-            <View className="th" >栏目1</View>
-            <View className="th" >栏目2</View>
-            <View className="th" >栏目3</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >栏目4</View>
-            <View className="th" >操作</View>
-          </View>
-        })}
-      </View>
-    )
-  }
+  allGains = 0;
+
+  allGainsRate: any = 0;
 
   async getFundData() {
     let fundlist = this.fundList.map((val) => val.code).join(",");
@@ -135,7 +229,9 @@ export default class extends Component {
     });
 
     this.dataList = dataList;
-    console.log(this.dataList );
+    console.log(this.dataList);
+    this.getAllGains();
+    this.setState({ dataList: this.dataList });
   }
 
   getGuid() {
@@ -153,7 +249,7 @@ export default class extends Component {
     return sum;
   }
   calculate(val, hasReplace) {
-    let sum:any = 0;
+    let sum: any = 0;
     let num = val.num ? val.num : 0;
     if (hasReplace) {
       sum = ((val.dwjz - val.dwjz / (1 + val.gszzl * 0.01)) * num).toFixed(2);
@@ -181,17 +277,79 @@ export default class extends Component {
     }
   }
 
+  getAllGains() {
+    let allGains: any = 0;
+    let allNum = 0;
+    this.dataList.forEach((val: any) => {
+      allGains += parseFloat(val.gains);
+      allNum += parseFloat(val.amount);
+    });
+    allGains = allGains.toFixed(2);
+    let allGainsRate = ((allGains * 100) / allNum).toFixed(2);
+
+
+    this.allGains = allGains;
+    this.allGainsRate = allGainsRate;
+
+    this.setState({ allGains: this.allGains, allGainsRate: this.allGainsRate });
+  }
+
   componentWillMount() {
     this.userId = this.getGuid();
     this.getFundData();
 
   }
 
-  componentDidMount() { }
+  componentDidMount() {
+  }
 
   componentWillUnmount() { }
 
-  componentDidShow() { }
+  componentDidShow() {
+  }
 
   componentDidHide() { }
+
+  render() {
+    return (
+      <View className="components-page">
+        <View className="table_wrap">
+          <View className="thead">
+            <View className="tr">
+              {this.column.map(item => {
+                return <View className={item.columnCode === 'name' ? 'leftHeader th' : 'rightHeader th'} style={{ width: item.width }}  >{item.columnName}</View>
+              })}
+            </View>
+          </View>
+
+          {this.dataList.map((item: any) => {
+            return <View className="tr">
+              {this.column.map(columnItem => {
+                return <View style={{ width: columnItem.width }} className={(columnItem.columnCode === 'name' ? 'leftTd td' : 'right td')} >
+                  <View className={(columnItem.isValue ? item[columnItem.columnCode] > 0 ? 'up' : 'down' : '')}>
+                    {item[columnItem.columnCode]} {columnItem.format ? columnItem.format : ''}
+                  </View>
+                </View>
+              })}
+            </View>
+          })
+          }
+        </View >
+
+        <View className="bottomRow">
+          <View className="bottomRow-left">
+            <View className="leftIcon iconfont iconcaozuojilu"></View>
+            <View className="leftIcon iconfont iconxiai"></View>
+            <View className="leftIcon iconfont iconshezhi"></View>
+          </View>
+          <View className="bottomRow-right">
+            <View>
+              <View>当前收益</View>
+              <View className={this.allGains >= 0 ? 'btn-up' : 'btn-down'} >{this.allGains}</View>
+            </View>
+            <View className="iconfont iconyoubian rightIcon"></View>
+          </View>
+        </View>
+      </View>)
+  }
 }
