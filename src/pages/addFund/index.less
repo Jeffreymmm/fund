@@ -1,0 +1,162 @@
+/* pages/addFund/addFund.wxss */
+
+.pageContent {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+
+
+
+  .fundInput {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    height: 50rpx;
+    margin-bottom: 22rpx;
+    padding: 18rpx 10rpx;
+    background: rgb(249, 249, 249);
+    border: 3px solid rgb(249, 249, 249);
+    border-radius: 20rpx;
+  }
+
+  .fundInputSelect {
+    border: 3px solid rgb(24, 144, 255);
+
+  }
+
+  .fundInput .title {
+    width: 180rpx;
+    height: 100%;
+    line-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    border-right: 1rpx solid rgb(213, 213, 213);
+  }
+
+  .fundInput .valueContent {
+    flex: 1;
+    padding-left: 25rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: rgb(213, 213, 213);
+    position: relative;
+
+    .option {
+      position: absolute;
+      width: 100%;
+      border-radius: 0 0 5px 5px;
+      border: solid 1px solid #eee;
+      height: 200px;
+      top: 63px;
+      left: 0px;
+      z-index: 10000;
+      background: #eee;
+      overflow-y: auto;
+      overflow-x: hidden;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      padding: 0 5px;
+
+      .option-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        height: 55px;
+        line-height: 55px;
+        width: 86%;
+
+        .name {
+          flex: 1;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          flex-shrink: 0;
+        }
+
+        .code {
+          width: 45px;
+        }
+      }
+    }
+  }
+
+  .colorBlack {
+    color: #000;
+  }
+
+  .testr {
+    position: absolute;
+    width: 100%;
+  }
+
+  .fundInputSelect .title {
+    font-weight: bold;
+    color: rgb(24, 144, 255);
+  }
+
+
+  .keyboard {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background: rgb(245, 247, 251);
+    padding: 0px 0 10rpx 0;
+  }
+
+  .leftContent {
+    width: 75%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    margin-bottom: 5rpx;
+  }
+
+  .rightContent {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .keyBtn {
+    width: 31%;
+    margin: 10rpx 0 0 10rpx;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    padding: 30rpx 0;
+    border-radius: 15rpx;
+  }
+
+  .sumbit {
+    width: 95%;
+    margin: 10rpx 0px 5rpx 0;
+    background: rgb(24, 144, 255);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 30rpx 0;
+    border-radius: 15rpx;
+  }
+
+
+
+
+  .iconS {
+    font-size: 30px !important;
+  }
+
+}

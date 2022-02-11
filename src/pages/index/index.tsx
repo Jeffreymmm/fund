@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { Component } from 'react'
 import { View, Icon } from '@tarojs/components'
 import './index.less'
@@ -167,6 +168,7 @@ export default class extends Component {
     },
   ]
 
+
   dataList = [];
 
   userId: any = null;
@@ -177,6 +179,8 @@ export default class extends Component {
   allGainsRate: any = 0;
 
   async getFundData() {
+    console.log(this.fundList);
+
     let fundlist = this.fundList.map((val) => val.code).join(",");
     let url =
       "https://fundmobapi.eastmoney.com/FundMNewApi/FundMNFInfo?pageIndex=1&pageSize=200&plat=Android&appType=ttjj&product=EFund&Version=1&deviceid=" +
@@ -185,7 +189,12 @@ export default class extends Component {
       fundlist;
     const res = await Taro.request({ url: url });
 
+
+
     let data = res.data.Datas;
+
+    if (!data) return;
+
     this.dataList = [];
     let dataList: any = [];
     data.forEach((val) => {
@@ -296,7 +305,17 @@ export default class extends Component {
 
   componentWillMount() {
     this.userId = this.getGuid();
-    this.getFundData();
+
+
+    let value = Taro.getStorageSync('fundList')
+    console.log(value);
+    if (value) {
+      this.fundList = JSON.parse(value);
+      console.log(this.fundList);
+
+      this.setState({ fundList: this.fundList });
+      this.getFundData();
+    }
 
   }
 
@@ -326,20 +345,19 @@ export default class extends Component {
             return <View className="tr">
               {this.column.map(columnItem => {
                 return <View style={{ width: columnItem.width }} className={(columnItem.columnCode === 'name' ? 'leftTd td' : 'right td')} >
-                  <View className={(columnItem.isValue ? item[columnItem.columnCode] > 0 ? 'up' : 'down' : '')}>
+                  <View style={{ width: '100%' }} className={(columnItem.isValue ? item[columnItem.columnCode] > 0 ? 'up' : 'down' : '')}>
                     {item[columnItem.columnCode]} {columnItem.format ? columnItem.format : ''}
                   </View>
                 </View>
               })}
             </View>
-          })
-          }
+          })}
         </View >
 
         <View className="bottomRow">
           <View className="bottomRow-left">
-            <View className="leftIcon iconfont iconcaozuojilu"></View>
-            <View className="leftIcon iconfont iconxiai"></View>
+            <View className="leftIcon iconfont icona-liebiao_huaban1_huaban1"></View>
+            <View className="leftIcon iconfont iconxiai1"></View>
             <View className="leftIcon iconfont iconshezhi"></View>
           </View>
           <View className="bottomRow-right">
