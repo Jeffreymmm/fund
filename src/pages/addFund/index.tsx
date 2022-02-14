@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/api';
 import './index.less'
-import { AtMessage } from 'taro-ui'
+
 const addFundPage = ((props: any) => {
   console.log(props);
 
@@ -24,6 +24,8 @@ const addFundPage = ((props: any) => {
 
   const [isSelect, setIsSelect] = useState(false);
 
+  const [isOpened, setIsOpened] = useState(false);
+
 
   const remoteMethod: any = async (query) => {
     if (query !== "") {
@@ -36,10 +38,12 @@ const addFundPage = ((props: any) => {
       const res = await Taro.request({ url: url });
 
       if (!res.data.Datas) return;
-      let value = Taro.getStorageSync('fundList')
+      let value = Taro.getStorageSync('fundList') || false;
+      console.log(res.data.Datas);
+      console.log(value);
 
       let searchOptions = res.data.Datas.filter((val) => {
-        let hasCode = true;
+        let hasCode = false;
         if (value) {
           hasCode = JSON.parse(value).some((currentValue, index, array) => {
             return currentValue.code == val.CODE;
@@ -47,6 +51,8 @@ const addFundPage = ((props: any) => {
         }
         return !hasCode;
       }).map((val) => {
+        console.log(val);
+
         return {
           value: val.CODE,
           label: val.NAME,
@@ -143,10 +149,13 @@ const addFundPage = ((props: any) => {
             data: JSON.stringify([fundInfo])
           })
         }
-        Taro.atMessage({
-          'message': '消息通知',
-          'type': 'success',
-        })
+
+        setIsOpened(true);
+        setTimeout(() => {
+          Taro.redirectTo({
+            url: '/pages/index/index',
+          })
+        }, 500);
       } catch (e) {
         // Do something when catch error
       }
@@ -223,7 +232,11 @@ const addFundPage = ((props: any) => {
           </View>
         </View>
       </View>
-      <AtMessage />
+
+      {
+        isOpened ? <View className="toast">添加成功!</View> : ''
+      }
+
     </View>
   );
 });

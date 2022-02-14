@@ -1382,7 +1382,7 @@
     "@babel/runtime" "^7.14.5"
     "@tarojs/runtime" "3.4.1"
 
-"@tarojs/components@3.4.1":
+"@tarojs/components@>=3", "@tarojs/components@3.4.1":
   "integrity" "sha512-2w/VdaiPoeJA6moFYVIfNg2WV8sUYwPxS5sHwKyH4iH/IoKOY34xFDh327ePKnqKW1q4plQMEMaUAB85JWWDAA=="
   "resolved" "https://registry.npmjs.org/@tarojs/components/-/components-3.4.1.tgz"
   "version" "3.4.1"
@@ -1604,7 +1604,7 @@
     "resolve-url-loader" "3.1.1"
     "sass-loader" "8.0.2"
 
-"@tarojs/react@3.4.1":
+"@tarojs/react@>=3", "@tarojs/react@3.4.1":
   "integrity" "sha512-IHADCOy/3NP9qcDi8KQBN6+YzHFKGgDhhMu+K58lLnsjiaFZc+8cXJ3QQfZm+xsFqQwil6j3OMWk16wY6Q0FEg=="
   "resolved" "https://registry.npmjs.org/@tarojs/react/-/react-3.4.1.tgz"
   "version" "3.4.1"
@@ -1853,15 +1853,6 @@
   "integrity" "sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ=="
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.4.tgz"
   "version" "15.7.4"
-
-"@types/react@^16.7.3":
-  "integrity" "sha512-WngBZLuSkP4IAgPi0HOsGCHo6dn3CcuLQnCfC17VbA7YBgipZiZoTOhObwl/93DsFW0Y2a/ZXeonpW4DxirEJg=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-16.14.23.tgz"
-  "version" "16.14.23"
-  dependencies:
-    "@types/prop-types" "*"
-    "@types/scheduler" "*"
-    "csstype" "^3.0.2"
 
 "@types/react@^17.0.2":
   "integrity" "sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug=="
@@ -2879,11 +2870,6 @@
   "integrity" "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA=="
   "resolved" "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   "version" "2.2.0"
-
-"bind-decorator@^1.0.11":
-  "integrity" "sha1-5BvAah9l3ZzsR2yRxdrzl4SIJS8="
-  "resolved" "https://registry.npmjs.org/bind-decorator/-/bind-decorator-1.0.11.tgz"
-  "version" "1.0.11"
 
 "block-stream@*":
   "integrity" "sha1-E+v+d4oDIFz+A3UUgeu0szAMEmo="
@@ -8870,7 +8856,7 @@
   "resolved" "https://registry.npmjs.org/promise-inflight/-/promise-inflight-1.0.1.tgz"
   "version" "1.0.1"
 
-"prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.7.2":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -9051,7 +9037,7 @@
     "iconv-lite" "0.4.24"
     "unpipe" "1.0.0"
 
-"react-dom@^17.0.0":
+"react-dom@^17.0.0", "react-dom@>=16.13.0":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -9084,7 +9070,7 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.9.0.tgz"
   "version" "0.9.0"
 
-"react@^17.0.0", "react@^17.0.1", "react@17.0.2":
+"react@^17.0.0", "react@^17.0.1", "react@>=16.13.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -10783,17 +10769,15 @@
     "css-mediaquery" "^0.1.2"
     "postcss-value-parser" "^3.3.0"
 
-"taro-ui@^2.3.4":
-  "integrity" "sha512-qjAGO75bIvBGaOlpbnRKecTjmQIzJZjieFuz2UsfSJHnyGgOhlFviWWHPLQQGE2tFcjC0Zol0BDnO4r87JjdSw=="
-  "resolved" "https://registry.npmjs.org/taro-ui/-/taro-ui-2.3.4.tgz"
-  "version" "2.3.4"
+"taro-ui@^3.0.0-alpha.3":
+  "integrity" "sha512-qLVP2/6zh01CbZFZUj2QuhbwtnOd7l1PSzd1Rjl1be1vyq819rFeHA1lApxYLXiw1zpM5v/Ywp7euB88LpQagg=="
+  "resolved" "https://registry.npmjs.org/taro-ui/-/taro-ui-3.0.0-alpha.3.tgz"
+  "version" "3.0.0-alpha.3"
   dependencies:
-    "@types/react" "^16.7.3"
-    "bind-decorator" "^1.0.11"
     "classnames" "^2.2.6"
     "dayjs" "^1.7.7"
     "lodash" "^4.17.10"
-    "prop-types" "^15.6.2"
+    "prop-types" "^15.7.2"
 
 "terser-webpack-plugin@^1.4.3":
   "integrity" "sha512-04Rfe496lN8EYruwi6oPQkG0vo8C+HT49X687FZnpPF0qMAIHONI6HEXYPKDOE8e5HjXTyKfqRd/agHtH0kOtw=="

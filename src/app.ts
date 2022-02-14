@@ -1,7 +1,9 @@
 import { Component } from 'react'
 import sr from 'sr-sdk-wxapp'
-
 import './app.less'
+
+import "taro-ui/dist/style/components/button.scss";
+import "taro-ui/dist/style/components/loading.scss";
 
 /**
    * 有数埋点SDK 默认配置

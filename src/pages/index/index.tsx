@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Component } from 'react'
-import { View, Icon } from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import './index.less'
 import Taro from '@tarojs/api';
 export default class extends Component {
@@ -178,6 +178,8 @@ export default class extends Component {
 
   allGainsRate: any = 0;
 
+  myVar1:any;
+
   async getFundData() {
     console.log(this.fundList);
 
@@ -304,6 +306,15 @@ export default class extends Component {
   }
 
   componentWillMount() {
+
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillUnmount() { }
+
+  componentDidShow() {
     this.userId = this.getGuid();
 
 
@@ -315,16 +326,11 @@ export default class extends Component {
 
       this.setState({ fundList: this.fundList });
       this.getFundData();
+      this.myVar1 = setInterval(() => {
+        this.getFundData();
+      }, 60 * 1000);
     }
 
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillUnmount() { }
-
-  componentDidShow() {
   }
 
   componentDidHide() { }
@@ -332,6 +338,7 @@ export default class extends Component {
   render() {
     return (
       <View className="components-page">
+
         <View className="table_wrap">
           <View className="thead">
             <View className="tr">
@@ -356,18 +363,26 @@ export default class extends Component {
 
         <View className="bottomRow">
           <View className="bottomRow-left">
-            <View className="leftIcon iconfont icona-liebiao_huaban1_huaban1"></View>
-            <View className="leftIcon iconfont iconxiai1"></View>
-            <View className="leftIcon iconfont iconshezhi"></View>
+            {/* <View className="gray leftIcon iconfont icona-liebiao_huaban1_huaban1"></View>
+            <View className="redHeart leftIcon iconfont iconxiai1"></View>
+            <View className="gray leftIcon iconfont iconshezhi"></View> */}
           </View>
           <View className="bottomRow-right">
-            <View>
-              <View>当前收益</View>
+            <View className="gains">
               <View className={this.allGains >= 0 ? 'btn-up' : 'btn-down'} >{this.allGains}</View>
+              <View className="fontSize" >当日收益</View>
             </View>
-            <View className="iconfont iconyoubian rightIcon"></View>
+            <View className="gray iconfont iconyoubian rightIcon"></View>
           </View>
         </View>
-      </View>)
+
+        <View className="fabButtom" onClick={() => {
+          Taro.navigateTo({
+            url: '/pages/addFund/index',
+          });
+        }}>
+          <View className="child">+</View>
+        </View>
+      </View >)
   }
 }
