@@ -3,6 +3,8 @@ import { Component } from 'react'
 import { View, Text } from '@tarojs/components'
 import './index.less'
 import Taro from '@tarojs/api';
+
+import { AtActionSheet, AtActionSheetItem } from 'taro-ui';
 export default class extends Component {
 
   column = [
@@ -11,13 +13,13 @@ export default class extends Component {
       columnCode: 'name',
       width: '230rpx',
     },
-    {
-      columnName: '净值',
-      columnCode: 'dwjz',
-      width: '150rpx',
-      format: '%',
-      isValue: true
-    },
+    // {
+    //   columnName: '净值',
+    //   columnCode: 'dwjz',
+    //   width: '150rpx',
+    //   format: '%',
+    //   isValue: true
+    // },
     {
       columnName: '估算净值',
       columnCode: 'gszzl',
@@ -59,114 +61,7 @@ export default class extends Component {
     },
   ];
 
-  fundList = [
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-    {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    }, {
-      code: '003095',
-      num: 5954.10,
-      cost: 3.3590
-    },
-  ]
+  fundList = []
 
 
   dataList = [];
@@ -178,7 +73,11 @@ export default class extends Component {
 
   allGainsRate: any = 0;
 
-  myVar1:any;
+  myVar1: any;
+
+  selectIndex = -1;
+
+  isOpenedSheet = false;
 
   async getFundData() {
     console.log(this.fundList);
@@ -335,31 +234,55 @@ export default class extends Component {
 
   componentDidHide() { }
 
+  onActionSheet(index) {
+    this.selectIndex = index;
+    this.isOpenedSheet = true;
+    this.setState({
+      selectIndex: this.selectIndex,
+      isOpenedSheet: this.isOpenedSheet
+    })
+  }
+
   render() {
     return (
       <View className="components-page">
 
-        <View className="table_wrap">
-          <View className="thead">
-            <View className="tr">
-              {this.column.map(item => {
-                return <View className={item.columnCode === 'name' ? 'leftHeader th' : 'rightHeader th'} style={{ width: item.width }}  >{item.columnName}</View>
-              })}
-            </View>
-          </View>
+        {
+          this.dataList.length > 0 ? (
+            <View className="table_wrap">
+              <View className="thead">
+                <View className="tr">
+                  {this.column.map(item => {
+                    return <View className={item.columnCode === 'name' ? 'leftHeader th' : 'rightHeader th'} style={{ width: item.width }}  >{item.columnName}</View>
+                  })}
+                </View>
+              </View>
 
-          {this.dataList.map((item: any) => {
-            return <View className="tr">
-              {this.column.map(columnItem => {
-                return <View style={{ width: columnItem.width }} className={(columnItem.columnCode === 'name' ? 'leftTd td' : 'right td')} >
-                  <View style={{ width: '100%' }} className={(columnItem.isValue ? item[columnItem.columnCode] > 0 ? 'up' : 'down' : '')}>
-                    {item[columnItem.columnCode]} {columnItem.format ? columnItem.format : ''}
-                  </View>
+              {this.dataList.map((item: any, index: number) => {
+                return <View className="tr" onClick={() => {
+                  this.onActionSheet(index);
+                }}>
+                  {this.column.map(columnItem => {
+                    return <View style={{ width: columnItem.width }} className={(columnItem.columnCode === 'name' ? 'leftTd td' : 'right td')} >
+                      <View style={{ width: '100%' }} className={(columnItem.isValue ? item[columnItem.columnCode] > 0 ? 'up' : 'down' : '')}>
+                        {item[columnItem.columnCode]} {columnItem.format ? columnItem.format : ''}
+                      </View>
+                    </View>
+                  })}
                 </View>
               })}
-            </View>
-          })}
-        </View >
+            </View >) : (
+            <View className="noData">
+              <View className="icon iconfont iconwushuju"></View>
+              <View className="noDataText at-row">
+                暂无数据，点击<View className="buttom" onClick={() => {
+                  Taro.navigateTo({
+                    url: '/pages/addFund/index',
+                  });
+                }}>添加</View>或者通过<View className="buttom">登陆</View>恢复数据
+              </View>
+            </View>)
+        }
 
         <View className="bottomRow">
           <View className="bottomRow-left">
@@ -381,8 +304,50 @@ export default class extends Component {
             url: '/pages/addFund/index',
           });
         }}>
-          <View className="child">+</View>
+          <View className="iconfont iconjia child"></View>
         </View>
+
+        <AtActionSheet isOpened={this.isOpenedSheet} cancelText='取消' title={this.selectIndex > -1 && this.dataList[this.selectIndex]['name'] ? this.dataList[this.selectIndex]['name'] : ''}>
+          <AtActionSheetItem onClick={() => {
+
+            let obj: any = this.dataList[this.selectIndex];
+
+            Taro.navigateTo({
+              url: `/pages/addFund/index?code=${obj.fundcode}&cost=${obj.cost}&num=${obj.num}&name=${obj.name}`,
+            });
+          }}>修改持仓</AtActionSheetItem>
+          <AtActionSheetItem onClick={() => {
+
+            let value = Taro.getStorageSync('fundList')
+            console.log(value);
+            if (value) {
+              this.fundList = JSON.parse(value);
+              this.fundList.splice(this.selectIndex, 1);
+
+              this.dataList.splice(this.selectIndex, 1);
+
+
+              console.log(this.fundList);
+
+              Taro.setStorage({
+                key: "fundList",
+                data: JSON.stringify(this.fundList)
+              })
+
+              this.isOpenedSheet = false;
+              this.fundList = [...this.fundList]
+              this.setState({
+                fundList: this.fundList,
+                dataList: this.dataList,
+                isOpenedSheet: this.isOpenedSheet
+              });
+            }
+
+
+          }}>
+            删除
+          </AtActionSheetItem>
+        </AtActionSheet>
       </View >)
   }
 }

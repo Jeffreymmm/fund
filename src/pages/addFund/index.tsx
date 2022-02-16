@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/api';
+import { Current } from '@tarojs/taro';
 import './index.less'
 
 const addFundPage = ((props: any) => {
@@ -8,8 +9,11 @@ const addFundPage = ((props: any) => {
 
 
 
+
   const numsList = Array.from({ length: 9 }, (v, k) => `${k + 1}`);
 
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const [fundInfo, setFundInfo] = useState({
     code: '',
@@ -25,6 +29,9 @@ const addFundPage = ((props: any) => {
   const [isSelect, setIsSelect] = useState(false);
 
   const [isOpened, setIsOpened] = useState(false);
+
+  const [name, setName] = useState(null);
+
 
 
   const remoteMethod: any = async (query) => {
@@ -118,12 +125,14 @@ const addFundPage = ((props: any) => {
   const jiantou = (state) => {
     switch (state) {
       case 'up':
+
+
         if (selectIndex < 3) {
           setSelectIndex(selectIndex + 1);
         }
         break;
       case 'down':
-        if (selectIndex > 1) {
+        if (selectIndex > (isEdit ? 2 : 1)) {
           setSelectIndex(selectIndex - 1);
         }
         break;
@@ -131,6 +140,7 @@ const addFundPage = ((props: any) => {
   }
 
   const setCode = () => {
+    console.log(isSelect);
 
     if (isSelect) {
       try {
@@ -138,11 +148,29 @@ const addFundPage = ((props: any) => {
         console.log(value);
         if (value) {
           let arr = JSON.parse(value);
-          arr.push(fundInfo)
-          Taro.setStorage({
-            key: "fundList",
-            data: JSON.stringify(arr)
-          })
+
+          if (arr && arr.length) {
+
+
+            let findIndex = arr.findIndex(item => item.code === fundInfo.code);
+
+
+            if (findIndex !== -1) {
+              arr[findIndex] = fundInfo;
+            } else {
+              arr.push(fundInfo)
+            }
+
+            Taro.setStorage({
+              key: "fundList",
+              data: JSON.stringify(arr)
+            })
+          } else {
+            Taro.setStorage({
+              key: "fundList",
+              data: JSON.stringify([fundInfo])
+            })
+          }
         } else {
           Taro.setStorage({
             key: "fundList",
@@ -172,26 +200,47 @@ const addFundPage = ((props: any) => {
       setIsSelect(true);
     }
   }
+  useEffect(() => {
+    let params: any = Current.router?.params;
+    let { code, num, cost, name } = params;
+    console.log(isSelect);
+    console.log(code);
 
+    if (!code) return;
+
+    setIsEdit(true);
+    setFundInfo({ code, num, cost })
+    setIsSelect(true);
+    setName(name);
+    setTimeout(() => {
+      setSelectIndex(2);
+    }, 1500);
+  }, [Current.router?.params])
   return (
     <View>
       <View className="pageContent" style="align-items:center;position:relative;">
-        <View className={selectIndex === 1 ? 'fundInputSelect fundInput' : 'fundInput'} onClick={() => { setSelectIndex(1); }} >
-          <View className="title">持仓编码</View>
-          <View className={fundInfo.code.length ? 'colorBlack valueContent' : 'valueContent'}>
-            {fundInfo.code ? fundInfo.code : '必填'}
-            {
-              (searchOptions.length && !isSelect) ? <View className="option">
-                {searchOptions.map((item: any) => {
-                  return <View onClick={() => { onSelectFund(item) }} className="option-row">
-                    <View className="name">{item.label}</View>
-                    <View className="code">{item.value}</View>
-                  </View>;
-                })}
-              </View> : ''
-            }
+        {
+          isEdit ? <View className="editFund">
+            <View className="title">{name}</View>
+            <View className="fcode">{fundInfo.code}</View>
+          </View> : <View className={selectIndex === 1 ? 'fundInputSelect fundInput' : 'fundInput'} onClick={() => { setSelectIndex(1); }} >
+            <View className="title">持仓编码</View>
+            <View className={fundInfo.code.length ? 'colorBlack valueContent' : 'valueContent'}>
+              {fundInfo.code ? fundInfo.code : '必填'}
+              {
+                (searchOptions.length && !isSelect) ? <View className="option">
+                  {searchOptions.map((item: any) => {
+                    return <View onClick={() => { onSelectFund(item) }} className="option-row">
+                      <View className="name">{item.label}</View>
+                      <View className="code">{item.value}</View>
+                    </View>;
+                  })}
+                </View> : ''
+              }
+            </View>
           </View>
-        </View>
+        }
+
         <View className={selectIndex === 2 ? 'fundInputSelect fundInput' : 'fundInput'} onClick={() => { setSelectIndex(2); }}  >
           <View className="title">持有份额</View>
           <View className={fundInfo.num.length ? 'colorBlack valueContent' : 'valueContent'}>
@@ -234,7 +283,7 @@ const addFundPage = ((props: any) => {
       </View>
 
       {
-        isOpened ? <View className="toast">添加成功!</View> : ''
+        isOpened ? <View className="toast"> {isEdit ? '修改' : '添加'}  成功!</View> : ''
       }
 
     </View>

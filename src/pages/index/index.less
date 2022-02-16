@@ -8,6 +8,33 @@
 }
 
 
+.noData {
+  width: 100vw;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  .icon {
+    font-size: 150px;
+    margin-top: 150px;
+    color: #eee;
+  }
+
+  .noDataText {
+    width: 80%;
+    width: 80%;
+    font-size: 28rpx;
+    justify-content: center;
+    margin-top: 25px;
+    align-items: center;
+    .buttom {
+      font-size: 30rpx;
+      color: #0085f9;
+    }
+  }
+}
 
 
 .table_wrap {
@@ -23,7 +50,7 @@
   .leftTd {
     .left;
     background-color: #fff;
-    z-index: 39999;
+    z-index: 999;
     position: sticky;
     left: 0;
     padding-left: 24px;
@@ -127,7 +154,9 @@
   align-items: center;
   height: 100px;
   border-top: 1px solid #eee;
-
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
 
   .bottomRow-left {
     width: 300px;
@@ -197,20 +226,21 @@
 
 .fabButtom {
   position: absolute;
-  right: 10px;
-  bottom: 120px;
+  right: 40px;
+  bottom: 150px;
   background-color: #85b9e6;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
 
   .child {
-    width: 100%;
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+    font-size: 40rpx;
+    padding-right: 5rpx;
   }
 }
+
+// @import "../../../node_modules/taro-ui/dist/style/components/action-sheet.scss"; 
