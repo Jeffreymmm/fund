@@ -79,6 +79,17 @@ export default class extends Component {
 
   isOpenedSheet = false;
 
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '吃基小能手',
+      path: '/pages/index/index'
+    }
+  }
+
   async getFundData() {
     console.log(this.fundList);
 
